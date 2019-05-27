@@ -8,29 +8,8 @@
         <td>
           <input v-model="email">
         </td>
-      </tr>
-      <tr>
-        <th>Name</th>
         <td>
-          <input v-model="username">
-        </td>
-      </tr>
-      <tr>
-        <th>Age</th>
-        <td>
-          <input type="number" v-model="age">
-        </td>
-      </tr>
-      <tr>
-        <th>Tel</th>
-        <td>
-          <input v-model="tel">
-        </td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>
-          <button @click="addData">Click</button>
+          <button @click="delData">Click</button>
         </td>
       </tr>
     </table>
@@ -63,21 +42,15 @@ export default {
     };
   },
   methods: {
-    addData: function() {
-      let add_url = url + "/" + this.email + ".json";
-      let data = {
-        name: this.username,
-        age: this.age,
-        tel: this.tel
-      };
-      axios.put(add_url, data).then(re => {
+    delData: function() {
+      let del_url = url + "/" + this.email + ".json";
+      axios.delete(del_url).then(re => {
+        this.message = this.email + "を削除しました。";
         this.email = "";
-        this.username = "";
-        this.tel = "";
-        this.age = 0;
         this.getData();
       });
     },
+
     getData: function() {
       axios
         .get(url + ".json")
